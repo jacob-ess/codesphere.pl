@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:include="header :: header"></th:block>
+</head>
+<body>
+	<div class="container">
+		<th:block th:include="menu :: menu"></th:block>
+
+		<div th:if="${not #lists.isEmpty(users)}">
+			<h2>User List</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Login</th>
+					<th>Password</th>
+					<th>View</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.id}" />
+					<td th:text="${user.login}" />
+					<td th:text="${user.password}" />
+					<td>
+						<form th:action="@{/user/show/{id}(id=${user.id})}">
+							<button type="submit" class="btn btn-xs btn-info">View</button>
+						</form>
+					</td>
+					<td>
+						<form th:action="@{/user/edit/{id}(id=${user.id})}">
+							<button type="submit" class="btn btn-xs btn-primary">Edit</button>
+						</form>
+					</td>
+					<td>
+						<form th:action="@{/user/delete/{id}(id=${user.id})}">
+							<button type="submit" class="btn btn-xs btn-danger">Delete</button>
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
