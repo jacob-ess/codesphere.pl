@@ -16,6 +16,11 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@RequestMapping("/login")
+	public String login(Model model) {
+		return "user/login";
+	}
 	
 	@RequestMapping("/new")
 	public String newUser(Model model) {

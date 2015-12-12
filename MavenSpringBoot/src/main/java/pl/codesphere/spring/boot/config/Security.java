@@ -12,10 +12,12 @@ public class Security extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/").permitAll();
+		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/webjars/**").permitAll().anyRequest()
+				.authenticated().and().formLogin().loginPage("/user/login").permitAll();
 	}
 }
